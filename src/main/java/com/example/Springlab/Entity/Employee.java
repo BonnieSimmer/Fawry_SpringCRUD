@@ -17,4 +17,8 @@ public class Employee {
     private String lastName;
     private String email;
     private Double salary;
+
+    public void printInfo() {
+        System.out.println("Employee ID: " + id + ", Name: " + firstName + " " + lastName + ", Email: " + email + ", Salary: " + salary);
+    }
 }
