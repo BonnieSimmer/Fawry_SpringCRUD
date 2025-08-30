@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class EmployeeService {
-    @Autowired
     private EmployeeRepo employeeRepo;
     Long id_counter = 1L;
 
@@ -28,21 +27,17 @@ public class EmployeeService {
         return employeeRepo.findAll();
     }
     public Employee GetEmployeeById(Long id) {
-        return employeeRepo.findById(id);
+        return employeeRepo.findById(id).orElseThrow( () -> new RuntimeException("Employee not found with id: " + id));
     }
 
     public Employee UpdateEmployee(Long id, String firstName, String lastName, String email, Double salary) {
-        Employee existingEmployee = employeeRepo.findById(id);
-        if (existingEmployee != null) {
+        Employee existingEmployee = employeeRepo.findById(id).orElseThrow( () -> new RuntimeException("Employee not found with id: " + id));
             existingEmployee.setFirstName(firstName);
             existingEmployee.setLastName(lastName);
             existingEmployee.setEmail(email);
             existingEmployee.setSalary(salary);
             employeeRepo.save(existingEmployee);
             return existingEmployee;
-        } else {
-            throw new RuntimeException("Employee not found with id: " + id);
-        }
     }
 
     public void DeleteEmployee(Long id) {

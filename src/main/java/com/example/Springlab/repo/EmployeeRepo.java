@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EmployeeRepo {
@@ -26,11 +27,10 @@ public class EmployeeRepo {
         return employees;
     }
 
-    public Employee findById(Long id) {
+    public Optional<Employee> findById(Long id) {
         return employees.stream()
                 .filter(emp -> emp.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     public boolean existsById(Long id) {
